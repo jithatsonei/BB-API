@@ -402,6 +402,16 @@ namespace BattleBitAPI.Server
         {
             SetRoleTo(player.SteamID, role);
         }
+		public ulong FindSteamIdByName(string steamname, GameServer server)
+		{
+			var keyValuePair = server.mInternal.Players.FirstOrDefault(x => x.Value.Name == steamname);
+			return keyValuePair.Key;
+		}
+		public Player FindPlayerBySteamId(ulong steamid, GameServer server)
+		{
+			var player = server.mInternal.Players.FirstOrDefault(player => player.Key == steamid).Value;
+			return (Player)player;
+		}
         public void SpawnPlayer(ulong steamID, PlayerLoadout loadout, PlayerWearings wearings, Vector3 position, Vector3 lookDirection, PlayerStand stand, float spawnProtection)
         {
             var request = new PlayerSpawnRequest()
